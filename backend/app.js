@@ -5,6 +5,9 @@ import cookieParser from 'cookie-parser';
 import 'dotenv/config'
 import connectDB from './db/connect.js';
 
+import swaggerUI from 'swagger-ui-express';
+import fs from 'fs';
+
 // Initialize app
 const app = express();
 
@@ -13,9 +16,12 @@ app.use(cors());
 app.use(json()); // Parses incoming JSON requests
 app.use(cookieParser(process.env.JWT_SECRET)); // Parses incoming cookies
 
-// Basic Test Route
+// Swagger Configuration
+const swaggerDocument = JSON.parse(fs.readFileSync(new URL('./swagger_output.json', import.meta.url)));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
 app.get('/', (req, res) => {
-  res.send('API is running...');
+  res.send('<h1>API is running</h1><a href="/api-docs">Documentation</a>');
 });
 
 import {profileRoute} from './routes/profileRoute.js'
@@ -30,8 +36,6 @@ app.use('/api/v1/auth', authRoute)
 
 // disable middleware for easy debugging
 // app.use(errorHandlerMiddleware);
-
-
 
 const PORT = process.env.PORT || 6767;
 
