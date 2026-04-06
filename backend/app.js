@@ -30,6 +30,11 @@ import { authRoute } from './routes/authRoute.js';
 
 import errorHandlerMiddleware from './middleware/error-handler.js';
 
+app.use('/health', (req, res, next) => {
+    res.json({ message: 'Server is alive' });
+    next();
+})
+
 app.use('/api/v1/profils', profileRoute)
 app.use('/api/v1/motdepasse', mdpRoute)
 app.use('/api/v1/auth', authRoute)
