@@ -12,7 +12,10 @@ import fs from 'fs';
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
 app.use(json()); // Parses incoming JSON requests
 app.use(cookieParser(process.env.JWT_SECRET)); // Parses incoming cookies
 
@@ -39,8 +42,10 @@ app.use('/api/v1/profils', profileRoute)
 app.use('/api/v1/motdepasse', mdpRoute)
 app.use('/api/v1/auth', authRoute)
 
+
+
 // disable middleware for easy debugging
-// app.use(errorHandlerMiddleware);
+app.use(errorHandlerMiddleware);
 
 const PORT = process.env.PORT || 6767;
 

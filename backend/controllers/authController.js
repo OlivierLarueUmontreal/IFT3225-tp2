@@ -13,9 +13,14 @@ export const register = async(req, res) => {
     const {username, email, password} = req.body;
     const userCount = await getNumOfProfiles();
     const role = userCount ? "user" : "admin";
-    const user = await User.create({username, email, password, role});
-    const tokenUser = createTokenUser(user);
-    res.status(StatusCodes.CREATED).json({user: tokenUser});
+    try {
+        const user = await User.create({username, email, password, role});
+        const tokenUser = createTokenUser(user);
+        res.status(StatusCodes.CREATED).json({user: tokenUser})
+    } catch (error){
+        throw new BadRequestError(error);
+    }
+   ;
 }
 
 export const login = async(req, res) => {

@@ -6,6 +6,7 @@ import { Footer } from "./components/Footer.jsx"
 import { Home } from "./pages/Home.jsx"
 import { Authentication } from "./pages/Authentication.jsx"
 import { Register } from "./pages/Register.jsx"
+import { MyAccount } from "./pages/MyAccount.jsx"
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path = "/" element = {<Home/>}/>
         <Route path = "/authentication" element = {<Authentication/>}/>
         <Route path = "/register" element = {<Register/>}/>
+        <Route path = "/myAccount" element = {<MyAccount/>}/>
       </Routes>
       <Footer/>
     </>
