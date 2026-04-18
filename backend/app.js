@@ -1,4 +1,4 @@
-import express, { json } from 'express';
+import express, {json} from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -24,27 +24,26 @@ const swaggerDocument = JSON.parse(fs.readFileSync(new URL('./swagger_output.jso
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.get('/', (req, res) => {
-  res.send('<h1>API is running</h1><a href="/api-docs">Documentation</a>');
+    res.send('<h1>API is running</h1><a href="/api-docs">Documentation</a>');
 });
 
 import {profileRoute} from './routes/profileRoute.js'
 import {mdpRoute} from './routes/mdpRoute.js'
-import { authRoute } from './routes/authRoute.js';
+import {authRoute} from './routes/authRoute.js';
 import {docRoute} from "./routes/docRoute.js";
 
 
 import errorHandlerMiddleware from './middleware/error-handler.js';
 
 app.use('/health', (req, res, next) => {
-    res.json({ message: 'Server is alive' });
+    res.json({message: 'Server is alive'});
     next();
 })
 
 app.use('/api/v1/profils', profileRoute)
 app.use('/api/v1/motdepasse', mdpRoute)
 app.use('/api/v1/auth', authRoute)
-app.use('/api/v1/documentation', docRoute)
-
+app.use('/api/v1/doc', docRoute)
 
 
 // disable middleware for easy debugging
@@ -60,8 +59,7 @@ const start = async () => {
                 console.log(`Server listening on port ${PORT}`)
             }
         )
-    }
-    catch(error){
+    } catch (error) {
         console.log(error)
     }
 }

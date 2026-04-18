@@ -37,7 +37,6 @@ export const AuthenticationForm = () => {
             });
 
             const data = await response.json();
-            console.log(data);
             if (!response.ok) {
                 alert(data.msg);
                 return;
@@ -62,7 +61,7 @@ export const AuthenticationForm = () => {
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">Email: </label>
                         <input
-                            className="form-control bg-secondary text-white border-0"
+                            className="form-control border-0"
                             type="text"
                             id="email"
                             name="email"
@@ -75,7 +74,7 @@ export const AuthenticationForm = () => {
                     <div className="mb-4">
                         <label htmlFor="password" className="form-label">Password: </label>
                         <input
-                            className="form-control bg-secondary text-white border-0"
+                            className="form-control border-0"
                             type="password"
                             id="password"
                             name="password"

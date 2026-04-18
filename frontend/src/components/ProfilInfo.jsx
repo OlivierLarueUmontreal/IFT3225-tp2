@@ -3,7 +3,7 @@ export const ProfilInfo = ({name, email, role, id, actionButton}) => {
         <div className="card h-100 shadow-sm bg-dark text-white border-secondary">
             <div className="card-body">
                 <div className="d-flex justify-content-between align-items-start mb-2">
-                    <h5 className="card-title text-info mb-0">{name}</h5>
+                    <h3 className="card-title text-info mb-0">{name}</h3>
                     {actionButton && (
                         <div className="ms-2">
                             {actionButton}
