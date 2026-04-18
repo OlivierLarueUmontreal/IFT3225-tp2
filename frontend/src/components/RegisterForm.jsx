@@ -102,7 +102,7 @@ export const RegisterForm = () => {
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">Username</label>
                         <input type="text"
-                            className="form-control bg-secondary text-white border-0"
+                            className="form-control border-0"
                             id="username"
                             name="username"
                             value={formData.username}
@@ -114,7 +114,7 @@ export const RegisterForm = () => {
                         <label htmlFor="email" className="form-label">Email</label>
                         <input
                             type="email"
-                            className="form-control bg-secondary text-white border-0"
+                            className="form-control border-0"
                             id="email"
                             name="email"
                             value={formData.email}
@@ -127,7 +127,7 @@ export const RegisterForm = () => {
                         <div className="d-flex gap-2">
                             <input
                                 type="number"
-                                className="form-control bg-secondary text-white border-0 w-25"
+                                className="form-control border-0 w-25"
                                 name="password_length"
                                 value={formData.password_length}
                                 onChange={handleChange}
@@ -144,7 +144,7 @@ export const RegisterForm = () => {
                         <label htmlFor="password" className="form-label">Password</label>
                         <input
                             type="password"
-                            className="form-control bg-secondary text-white border-0"
+                            className="form-control border-0"
                             id="password"
                             name="password"
                             value={formData.password}

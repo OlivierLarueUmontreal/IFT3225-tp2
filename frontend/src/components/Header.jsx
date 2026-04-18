@@ -21,9 +21,11 @@ export const Header = () => {
                         </NavLink>
                     )}
 
-                    <Link to="/documentation" className="nav-link text-white">
-                        Documentation
-                    </Link>
+                    {isLoggedIn && (
+                        <Link to="/documentation" className="nav-link text-white">
+                            Documentation
+                        </Link>
+                    )}
                 </div>
 
                 <div className="d-flex align-items-center gap-3">
