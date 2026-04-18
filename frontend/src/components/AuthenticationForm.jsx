@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const AuthenticationForm = () => {
 
@@ -8,7 +8,6 @@ export const AuthenticationForm = () => {
         password: ""
     });
 
-    const navigate = useNavigate();
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     const handleChange = (event) => {
@@ -37,14 +36,18 @@ export const AuthenticationForm = () => {
                 })
             });
 
+            const data = await response.json();
+            console.log(data);
             if (!response.ok) {
-                const data = await response.json();
                 alert(data.msg);
                 return;
             }
 
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('isAdmin', data.user.role === "admin" ? 'true' : 'false');
+
             alert("Logged in successfully!");
-            navigate("/");
+            window.location.href= "/";
 
         } catch (e) {
             alert("Something went wrong: " + e.message);
@@ -52,30 +55,45 @@ export const AuthenticationForm = () => {
     }
 
     return (
-        <div>
-            <form>
-                <label htmlFor="email">Email: </label>
-                <input
-                    type="text"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                />
-                <br />
-
-                <label htmlFor="password">Password: </label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                />
-                <br />
-
-                <button onClick={login}>Login</button>
-            </form>
+        <div className="card bg-dark text-white border-secondary shadow">
+            <div className="card-body p-4">
+                {/*inspired from bootstrap official doc on forms: https://getbootstrap.com/docs/5.3/forms/layout/*/}
+                <form onSubmit={login}>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">Email: </label>
+                        <input
+                            className="form-control bg-secondary text-white border-0"
+                            type="text"
+                            id="email"
+                            name="email"
+                            placeholder="name@example.com"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="password" className="form-label">Password: </label>
+                        <input
+                            className="form-control bg-secondary text-white border-0"
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="******"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="btn btn-success w-100 mb-3">Login</button>
+                </form>
+                <div className="text-center mt-3 pt-3 border-top border-secondary">
+                    <p className="text-white small">No account yet ?</p>
+                    <Link className="text-info small text-decoration-none" to="/register">
+                        Register
+                    </Link>
+                </div>
+            </div>
         </div>
     )
 }

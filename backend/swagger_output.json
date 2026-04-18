@@ -21,6 +21,16 @@
         }
       }
     },
+    "/api/v1/profils/me": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/v1/profils/": {
       "get": {
         "description": "",
@@ -51,42 +61,8 @@
                   },
                   "password": {
                     "example": "any"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/profils/myProfile": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/profils/updatePassword": {
-      "post": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "oldPassword": {
-                    "example": "any"
                   },
-                  "newPassword": {
+                  "role": {
                     "example": "any"
                   }
                 }
@@ -169,6 +145,33 @@
         }
       }
     },
+    "/api/v1/profils/updatePassword": {
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "oldPassword": {
+                    "example": "any"
+                  },
+                  "newPassword": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/motdepasse/{length}": {
       "get": {
         "description": "",
@@ -212,6 +215,16 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }

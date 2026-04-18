@@ -30,6 +30,8 @@ app.get('/', (req, res) => {
 import {profileRoute} from './routes/profileRoute.js'
 import {mdpRoute} from './routes/mdpRoute.js'
 import { authRoute } from './routes/authRoute.js';
+import {docRoute} from "./routes/docRoute.js";
+
 
 import errorHandlerMiddleware from './middleware/error-handler.js';
 
@@ -41,6 +43,7 @@ app.use('/health', (req, res, next) => {
 app.use('/api/v1/profils', profileRoute)
 app.use('/api/v1/motdepasse', mdpRoute)
 app.use('/api/v1/auth', authRoute)
+app.use('/api/v1/documentation', docRoute)
 
 
 

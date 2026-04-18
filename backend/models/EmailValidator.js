@@ -5,7 +5,7 @@ export const emailValidator = async (email) => {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        if(data.email_deliverability.status == 'deliverable'){
+        if(data.email_deliverability.status === 'deliverable'){
             return true;
         }
         return false

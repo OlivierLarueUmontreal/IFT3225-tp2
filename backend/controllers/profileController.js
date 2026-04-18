@@ -1,9 +1,9 @@
-import {StatusCodes} from 'http-status-codes'
-import {User} from '../models/User.js'
+import { StatusCodes } from 'http-status-codes'
+import { User } from '../models/User.js'
 import { createTokenUser } from '../utils/createTokenUser.js';
 import { checkPermission } from '../utils/checkPermission.js';
 import UnauthenticatedError from '../errors/unauthenticated.js';
-import {isTokenValid} from '../utils/jwt.js'
+import { isTokenValid } from '../utils/jwt.js'
 import { decodeUser } from '../utils/decodeUser.js';
 
 export const getNumOfProfiles = async (req, res) => {
@@ -20,44 +20,48 @@ export const getAllProfiles = async (req, res) => {
     const profiles = await User.find({}).select('-password');
     checkPermission(req)
     const tokenProfiles = profiles.map(profile => createTokenUser(profile))
-    res.status(StatusCodes.OK).json({profiles: tokenProfiles, count: tokenProfiles.length });
+    res.status(StatusCodes.OK).json({ profiles: tokenProfiles, count: tokenProfiles.length });
 };
 
 export const getProfileById = async (req, res) => {
     const { id: profileId } = req.params;
     checkPermission(req, profileId)
-    const profile = await User.findOne({ _id: profileId }).select('-password');
-        
+    const profile = await User.findById(profileId).select('-password');
     if (!profile) {
         return res.status(StatusCodes.NOT_FOUND).json({ msg: `No profile with id ${profileId}` });
     }
 
     const tokenProfile = createTokenUser(profile);
-    res.status(StatusCodes.OK).json({profile: tokenProfile });
+    res.status(StatusCodes.OK).json({ profile: tokenProfile });
 };
 
 export const updateProfile = async (req, res) => {
-    const { id: profileId } = req.params;
+    try{
+        const { id: profileId } = req.params;
 
-    checkPermission(req, profileId)
-    const {username, email} = req.body;
+        checkPermission(req, profileId)
+        const { username, email } = req.body;
 
-    const profile = await User.findOne({ _id: profileId });
+        const profile = await User.findOne({ _id: profileId });
 
-    if (!profile) {
-        return res.status(StatusCodes.NOT_FOUND).json({ msg: `No profile with id ${profileId}` });
+        if (!profile) {
+            return res.status(StatusCodes.NOT_FOUND).json({ msg: `No profile with id ${profileId}` });
+        }
+        if (username) {
+            profile.username = username;
+        }
+        if (email) {
+            profile.email = email;
+        }
+
+        await profile.save();
+
+        const tokenProfile = createTokenUser(profile);
+        res.status(StatusCodes.OK).json({ profile: tokenProfile });
+    } catch(e) {
+        console.log("Erreur lors du update de profil: ", e);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ msg: e.message });
     }
-    if(username){
-        profile.username = username;
-    }
-    if (email){
-        profile.email = email;
-    }
-
-    await profile.save();
-
-    const tokenProfile = createTokenUser(profile);
-    res.status(StatusCodes.OK).json({profile: tokenProfile });
 };
 
 export const updatePassword = async (req, res) => {
@@ -65,7 +69,7 @@ export const updatePassword = async (req, res) => {
     const decodedUser = decodeUser(req)
 
     const profileId = decodedUser.userId;
-    
+
     const { oldPassword, newPassword } = req.body;
 
     checkPermission(req, profileId);
@@ -99,7 +103,7 @@ export const deleteProfile = async (req, res) => {
     checkPermission(req, profileId)
 
     const profile = await User.findOneAndDelete({ _id: profileId });
-    
+
     if (!profile) {
         return res.status(StatusCodes.NOT_FOUND).json({ msg: `No profile with id ${profileId}` });
     }
