@@ -18,8 +18,6 @@ const doc = {
 };
 
 const outputFile = './swagger_output.json';
-// Pointing it to app.js allows the crawler to traverse all router configurations
 const routes = ['./app.js'];
 
-// Generate documentation
 swaggerAutogen({openapi: '3.0.0'})(outputFile, routes, doc);
