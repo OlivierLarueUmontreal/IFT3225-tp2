@@ -28,10 +28,6 @@ export const DocumentationTable = ({routes}) => {
 
     return (// inspired from : https://getbootstrap.com/docs/4.1/content/tables/
         <div className="container-fluid mt-5 px-4">
-            <div className="d-flex justify-content-between align-items-center mb-4">
-                <h1 className="text-white">Documentation API REST</h1>
-            </div>
-
             <div className="table-responsive">
                 <table className="table table-dark table-hover table-bordered border-secondary align-middle">
                     <thead >
