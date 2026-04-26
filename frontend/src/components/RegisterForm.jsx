@@ -15,6 +15,7 @@ export const RegisterForm = () => {
 
     const [registered, setRegistered] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     useEffect(() => {
@@ -142,16 +143,31 @@ export const RegisterForm = () => {
 
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">Password</label>
-                        <input
-                            type="password"
-                            className="form-control border-0"
-                            id="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            placeholder="Generate or enter your own"
-                            required
-                        />
+                        <div className="input-group">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className="form-control border-0"
+                                id="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                placeholder="Generate or enter your own"
+                                required
+                            />
+                            <button
+                                className="btn text-white border-0"
+                                style={{ backgroundColor: 'white' }}
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                <img 
+                                    src={showPassword ? "/eye-hide.svg" : "/eye.svg"} 
+                                    alt={showPassword ? "Hide password" : "Show password"} 
+                                    width="20" 
+                                    height="20" 
+                                />
+                            </button>
+                        </div>
                     </div>
 
                     <div className="mb-4 form-check form-switch">

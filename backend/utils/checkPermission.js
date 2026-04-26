@@ -8,7 +8,6 @@ export const checkPermission = (req, resourceUserId) => {
 
     if (decodedUser.role === 'admin') return true;
 
-    // Only do the ownership check if a resourceUserId was actually provided
     if (resourceUserId && decodedUser.userId === resourceUserId.toString()) {
         return true;
     }
