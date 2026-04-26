@@ -21,7 +21,7 @@ export const AdminPage = () => {
     return (
         <div className="container py-4 text-white">
             <h2 className="mb-4 border-bottom pb-2 font-bold">Centre d'Administration</h2>
-
+{/* 
             <div className="row mb-5">
                 <div className="col-6">
                     <button
@@ -37,9 +37,12 @@ export const AdminPage = () => {
                         Search/Delete by ID
                     </button>
                 </div>
-            </div>
+            </div> */}
 
-            <div className="mt-4">
+            <section>
+                <ProfilsTable/>
+            </section>
+            {/* <div className="mt-4">
                 {viewMode === "all" && (
                     <section>
                         <ProfilsTable/>
@@ -57,7 +60,7 @@ export const AdminPage = () => {
                         <span className="text-muted italic">Select an option.</span>
                     </div>
                 )}
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -76,7 +76,7 @@ export const ProfilInfo = ({name, email, role, id, actionButton, onDelete}) => {
                             <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Cancel</button>
                             <button type="button" className="btn btn-danger" onClick={() => {
                                 setShowModal(false);
-                                // deleteUser();
+                                deleteUser();
                                 actionButton? showGoodByeMessage(): {}
                             }}>Delete</button>
                         </div>
